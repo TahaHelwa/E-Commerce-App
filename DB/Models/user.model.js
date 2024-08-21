@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import mongoose from "../global-setup.js";
+import { hashSync } from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -48,4 +49,5 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
 export const User = mongoose.models.User || model("User", userSchema);

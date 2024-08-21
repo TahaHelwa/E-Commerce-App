@@ -10,13 +10,14 @@ import jwt from "jsonwebtoken";
 export const registerUser = async (req, res, next) => {
   const { userName, password, email, gender, age, phone, userType } = req.body;
   // check if user already exists
-  const user = await User.find({ email, phone });
+  const user = await User.findOne({
+    $or: [{ email }, { phone }],
+  });
   if (user) {
     return next(new ErrorClass("User already exists", 400));
   }
   // hash password
   const hashedPassword = hashSync(password, Number(process.env.SALT_ROUNDS));
-
   // create new user
   const newObject = {
     userName,
@@ -94,7 +95,7 @@ export const getUserProfile = async (req, res, next) => {
 
 export const updateUserProfile = async (req, res, next) => {
   const { _id } = req.user;
-  const { userName, email, gender, age, phone } = req.body;
+  const { userName, email, gender, age, phone, password } = req.body;
   const userObject = {
     userName,
     email,
