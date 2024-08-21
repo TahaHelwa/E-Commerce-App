@@ -46,6 +46,12 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    addressId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Address",
+      },
+    ],
   },
   { timestamps: true }
 );

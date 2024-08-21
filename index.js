@@ -18,6 +18,7 @@ app.use("/sub-categories", router.subCategoryRouter);
 app.use("/brands", router.brandRouter);
 app.use("/products", router.productRouter);
 app.use("/users", router.userRouter);
+app.use("/users", router.addressRouter);
 
 // Error handling middleware
 app.use(globaleResponse);

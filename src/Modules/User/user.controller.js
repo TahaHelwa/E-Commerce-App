@@ -1,4 +1,4 @@
-import { User } from "../../../DB/Models/index.js";
+import { Address, User } from "../../../DB/Models/index.js";
 import { ErrorClass } from "../../Utils/index.js";
 import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -8,7 +8,21 @@ import jwt from "jsonwebtoken";
  */
 
 export const registerUser = async (req, res, next) => {
-  const { userName, password, email, gender, age, phone, userType } = req.body;
+  const {
+    userName,
+    password,
+    email,
+    gender,
+    age,
+    phone,
+    userType,
+    country,
+    postalCode,
+    street,
+    houseNumber,
+    addressLabel,
+    city,
+  } = req.body;
   // check if user already exists
   const user = await User.findOne({
     $or: [{ email }, { phone }],
@@ -16,8 +30,22 @@ export const registerUser = async (req, res, next) => {
   if (user) {
     return next(new ErrorClass("User already exists", 400));
   }
+
+  // create new address insance
+  const addressInstance = new Address({
+    country,
+    postalCode,
+    street,
+    houseNumber,
+    addressLabel,
+    city,
+    isDefault: true,
+  });
+  const address = await addressInstance.save();
+
   // hash password
   const hashedPassword = hashSync(password, Number(process.env.SALT_ROUNDS));
+
   // create new user
   const newObject = {
     userName,
@@ -27,9 +55,11 @@ export const registerUser = async (req, res, next) => {
     age,
     phone,
     userType,
+    addressId: addressInstance._id,
   };
   // save user to database
   const newUser = await User.create(newObject);
+
   // send jwt token
   const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
@@ -38,6 +68,7 @@ export const registerUser = async (req, res, next) => {
     status: "Success",
     message: "User Created Successfully",
     user: newUser,
+    address,
     token,
   });
 };
@@ -78,7 +109,8 @@ export const getUserProfile = async (req, res, next) => {
   const { _id } = req.user;
 
   // find user by id
-  const user = await User.findById(_id);
+  const user = await User.findById(_id).populate("addressId", "-_id");
+
   if (!user) {
     return next(new ErrorClass("User not found", 404));
   }
