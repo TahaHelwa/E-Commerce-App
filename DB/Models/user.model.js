@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import mongoose from "../global-setup.js";
-import { hashSync } from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -48,7 +47,7 @@ const userSchema = new Schema(
     },
     addressId: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Address",
       },
     ],

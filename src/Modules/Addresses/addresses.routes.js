@@ -11,5 +11,22 @@ addressRouter.post(
   middleware.authenticate,
   middleware.errorHandler(addressControllers.addAddress)
 );
+addressRouter.get(
+  "/addresses",
+  middleware.authenticate,
+  middleware.errorHandler(addressControllers.getAddresses)
+);
+
+addressRouter.put(
+  "/addresses/:addressId",
+  middleware.authenticate,
+  middleware.errorHandler(addressControllers.updateAddress)
+);
+
+addressRouter.delete(
+  "/addresses/:addressId",
+  middleware.authenticate,
+  middleware.errorHandler(addressControllers.deleteAddress)
+);
 
 export { addressRouter };

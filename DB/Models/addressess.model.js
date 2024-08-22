@@ -1,14 +1,19 @@
 import mongoose from "../global-setup.js";
 import { Schema, model } from "mongoose";
 
-export const addressScheme = new Schema(
+const addressSchema = new Schema(
   {
+    userId: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     country: { type: String, required: true },
     postalCode: { type: Number, required: true },
     city: { type: String, required: true },
     street: { type: String, required: true },
     houseNumber: { type: Number, required: true },
-    addressLabel: String,
+    addressLabel: { type: String },
     isDefault: { type: Boolean, default: false },
     isMarkedAsDeleted: { type: Boolean, default: false },
   },
@@ -16,4 +21,4 @@ export const addressScheme = new Schema(
 );
 
 export const Address =
-  mongoose.models.Address || model("Address", addressScheme);
+  mongoose.models.Address || model("Address", addressSchema);
