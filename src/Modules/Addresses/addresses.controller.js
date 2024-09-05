@@ -15,7 +15,21 @@ export const addAddress = async (req, res, next) => {
     addressLabel,
     setAsDefault,
   } = req.body;
+  // cities validation
+  // const cities = await axios.get(
+  //   `https://api.api-ninjas.com/v1/city?country=EG&limit=30`,
+  //   {
+  //     headers: {
+  //       "x-api-key": process.env.CITY_API_KEY,
+  //     },
+  //   }
+  // );
+  // console.log(cities);
 
+  // const isCityExist = cities.data.find((c) => c.name === city);
+  // if (!isCityExist) {
+  //   return next(new ErrorClass(400, "Invalid city"));
+  // }
   // If setAsDefault is true, reset all other addresses' isDefault to false
   if (setAsDefault) {
     await Address.updateMany(

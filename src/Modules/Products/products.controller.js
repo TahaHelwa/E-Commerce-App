@@ -17,17 +17,17 @@ export const addProduct = async (req, res, next) => {
   const { title, overview, specs, price, discountAmount, discountType, stock } =
     req.body;
   // req,files
-  if (!req.files.length)
+  if (!req.files)
     return next(new ErrorClass("No images uploaded", { status: 400 }));
 
   // Ids check
   const brandDocument = req.document;
-  // Images section
-  // Access the customIds from the brandDocument
   const brandCustomId = brandDocument.customId;
   const catgeoryCustomId = brandDocument.categoryId.customId;
   const subCategoryCustomId = brandDocument.subCategoryId.customId;
 
+  // Images section
+  // Access the customIds from the brandDocument
   const customId = nanoid(4);
   const folder = `${process.env.UPLOADS_FOLDER}/Categories/${catgeoryCustomId}/SubCategories/${subCategoryCustomId}/Brands/${brandCustomId}/Products/${customId}`;
 

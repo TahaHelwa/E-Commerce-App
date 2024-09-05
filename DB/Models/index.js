@@ -4,3 +4,5 @@ export * from "./brand.model.js";
 export * from "./product.model.js";
 export * from "./user.model.js";
 export * from "./addressess.model.js";
+export * from "./cart.model.js";
+export * from "./coupon.model.js";
