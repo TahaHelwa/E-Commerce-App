@@ -18,3 +18,15 @@ export const calculateProductPrice = (price, discount) => {
 
   return appliedPrice;
 };
+
+// calculate cart total price
+
+export const calculateCartTotalPrice = (cart) => {
+  let totalPrice = 0;
+
+  for (const item of cart) {
+    totalPrice += item.productId.appliedPrice * item.quantity;
+  }
+
+  return totalPrice;
+};

@@ -30,14 +30,14 @@ export const paymentMethods = {
   Cash: "Cash",
 };
 
-export const OrderStatus = {
-  Pending: "pending",
-  Placed: "placed",
-  Confirmed: "confirmed",
-  Cancelled: "cancelled",
-  Refunded: "refunded",
-  Returned: "returned",
-  Delivered: "delivered",
-  Dropped: "dropped",
-  OneWay: "oneway",
+export const orderStatus = {
+  Pending: "Pending",
+  Placed: "Placed",
+  Confirmed: "Confirmed",
+  Cancelled: "Cancelled",
+  Refunded: "Refunded",
+  Returned: "Returned",
+  Delivered: "Delivered",
+  Dropped: "Dropped",
+  OneWay: "OneWay",
 };

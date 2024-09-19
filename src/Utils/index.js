@@ -4,3 +4,4 @@ export * from "./cloudinary.utils.js";
 export * from "./enums.utils.js";
 export * from "./calculate-price.utils.js";
 export * from "./crons.utils.js";
+export * from "./qr-code.js";
